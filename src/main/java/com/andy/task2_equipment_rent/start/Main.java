@@ -1,30 +1,52 @@
 package com.andy.task2_equipment_rent.start;
 
+import com.andy.task2_equipment_rent.model.Renter;
+import com.andy.task2_equipment_rent.model.RentUnit;
+import com.andy.task2_equipment_rent.model.SportEquipment;
+import com.andy.task2_equipment_rent.serivce.ServiceFactory;
+import com.andy.task2_equipment_rent.serivce.ShopService;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
-        Integer[] items = {1,2};
-        Integer[] newItems = items.clone();
-        newItems[0] = 3;
-        System.out.println(items[0]);
-        System.out.println(newItems[0]);
+        ServiceFactory serviceFactory = ServiceFactory.getInstance();
+        ShopService shopService = serviceFactory.getShopService();
 
-        int[] it = {1,2};
-        int[] newIt = it.clone();
-        newIt[0] = 3;
-        System.out.println(it[0]);
-        System.out.println(newIt[0]);
+        SportEquipment sportEquipment = new SportEquipment();
+        sportEquipment.setCategory(SportEquipment.Category.SKI);
+        sportEquipment.setTitle("FOX");
+        sportEquipment.setPrice(10);
 
-        Integer[][] itD = {{1,2}, {1,2}};
-        Integer[][] newItD = itD.clone();
-        newItD[0][1] = 3;
-        System.out.println(itD[0][1]);
-        System.out.println(newItD[0][1]);
+        List<SportEquipment> listEquioment = new ArrayList<SportEquipment>();
+        listEquioment.add(sportEquipment);
+        Renter renter = new Renter("Vasa");
+        Renter renter2 = new Renter("Vasa2");
+        Renter renter3 = new Renter("Vasa3");
+        Renter renter4 = new Renter("Vasa4");
+        Renter renter5 = new Renter("Vasa5");
+        RentUnit rentUnit = shopService.findEquipment(listEquioment, renter);
+        RentUnit rentUnit2 = shopService.findEquipment(listEquioment, renter2);
+        RentUnit rentUnit3 = shopService.findEquipment(listEquioment, renter3);
+        RentUnit rentUnit4 = shopService.findEquipment(listEquioment, renter4);
+        RentUnit rentUnit5 = shopService.findEquipment(listEquioment, renter5);
+        if (rentUnit != null) {
+            System.out.println(rentUnit.getUnits());
+            System.out.println(rentUnit2.getUnits());
+            System.out.println(rentUnit3.getUnits());
+            System.out.println(rentUnit4.getUnits());
+            System.out.println(rentUnit5.getUnits());
 
-        int[][] itemsD = {{1,2}, {1,2}};
-        int[][] newItemsD = itemsD.clone();
-        newItemsD[0][1] = 3;
-        System.out.println(itemsD[0][1]);
-        System.out.println(newItemsD[0][1]);
+            System.out.println("----------------------------------------------------------");
+            System.out.println(shopService.dailyReportRenters());
+            System.out.println("----------------------------------------------------------");
+            System.out.println(shopService.dailyReportUnits());
+            System.out.println("----------------------------------------------------------");
+
+        } else {
+            System.out.println("Shop is empty");
+        }
     }
 }
 

@@ -4,21 +4,28 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Scanner;
 
-public final class EquipmentReader {
-    private FileReader fileReader;
-    private Scanner scanner;
+public class EquipmentReader {
+
+    private static FileReader fileReader;
+    private static Scanner scanner;
     private static EquipmentReader equipmentReader;
 
-    {
-        fileReader = new FileReader(FileName.getFilename());
+    static {
+
+        try {
+            fileReader = new FileReader(FileName.getFilename());
+            equipmentReader = new EquipmentReader();
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+
         scanner = new Scanner(fileReader).useDelimiter("\\s*\\n\\s*");
-        equipmentReader = new EquipmentReader();
     }
 
-    private EquipmentReader() throws FileNotFoundException {
+    private EquipmentReader(){
     }
 
-    public boolean hasEquipment(){
+    public static boolean hasEquipment(){
         return scanner.hasNext();
     }
 

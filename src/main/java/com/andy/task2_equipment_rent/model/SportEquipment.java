@@ -1,16 +1,16 @@
 package com.andy.task2_equipment_rent.model;
 
 public class SportEquipment {
-    private enum category {SKI, SKATES, SLEIGH};
+    public enum Category {SKI, SKATES, SLEIGH}
 
     private String title;
-    private int price;
-    private category category;
+    private Integer price;
+    private Category category;
 
     public SportEquipment() {
     }
 
-    public SportEquipment(String title, int price, SportEquipment.category category) {
+    public SportEquipment(String title, Integer price, SportEquipment.Category category) {
         this.title = title;
         this.price = price;
         this.category = category;
@@ -28,15 +28,15 @@ public class SportEquipment {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(Integer price) {
         this.price = price;
     }
 
-    public SportEquipment.category getCategory() {
+    public SportEquipment.Category getCategory() {
         return category;
     }
 
-    public void setCategory(SportEquipment.category category) {
+    public void setCategory(SportEquipment.Category category) {
         this.category = category;
     }
 
@@ -47,16 +47,25 @@ public class SportEquipment {
 
         SportEquipment that = (SportEquipment) o;
 
-        if (price != that.price) return false;
         if (!title.equals(that.title)) return false;
+        if (!price.equals(that.price)) return false;
         return category == that.category;
     }
 
     @Override
     public int hashCode() {
         int result = title.hashCode();
-        result = 31 * result + price;
+        result = 31 * result + price.hashCode();
         result = 31 * result + category.hashCode();
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "SportEquipment{" +
+                "title='" + title + '\'' +
+                ", price=" + price +
+                ", category=" + category +
+                '}';
     }
 }
