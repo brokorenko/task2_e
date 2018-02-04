@@ -4,7 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Scanner;
 
-public class EquipmentReader {
+public class EquipmentReader implements AutoCloseable {
 
     private static FileReader fileReader;
     private static Scanner scanner;
@@ -35,5 +35,10 @@ public class EquipmentReader {
 
     public static EquipmentReader getInstance(){
         return equipmentReader;
+    }
+
+    public void close() throws Exception {
+        scanner.close();
+        fileReader.close();
     }
 }

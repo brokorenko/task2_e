@@ -31,6 +31,7 @@ public class Main {
         RentUnit rentUnit3 = shopService.findEquipment(listEquioment, renter3);
         RentUnit rentUnit4 = shopService.findEquipment(listEquioment, renter4);
         RentUnit rentUnit5 = shopService.findEquipment(listEquioment, renter5);
+
         if (rentUnit != null) {
             System.out.println(rentUnit.getUnits());
             System.out.println(rentUnit2.getUnits());

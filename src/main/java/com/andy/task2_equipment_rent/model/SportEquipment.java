@@ -3,8 +3,8 @@ package com.andy.task2_equipment_rent.model;
 public class SportEquipment {
     public enum Category {SKI, SKATES, SLEIGH}
 
-    private String title;
-    private Integer price;
+    private String title = "";
+    private Integer price = 0;
     private Category category;
 
     public SportEquipment() {
@@ -47,15 +47,15 @@ public class SportEquipment {
 
         SportEquipment that = (SportEquipment) o;
 
-        if (!title.equals(that.title)) return false;
-        if (!price.equals(that.price)) return false;
+        if (title != null ? !title.equals(that.title) : that.title != null) return false;
+        if (price != null ? !price.equals(that.price) : that.price != null) return false;
         return category == that.category;
     }
 
     @Override
     public int hashCode() {
-        int result = title.hashCode();
-        result = 31 * result + price.hashCode();
+        int result = title != null ? title.hashCode() : 0;
+        result = 31 * result + (price != null ? price.hashCode() : 0);
         result = 31 * result + category.hashCode();
         return result;
     }

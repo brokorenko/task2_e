@@ -15,12 +15,16 @@ public class ShopInitializer {
     private ShopInitializer() {
     }
 
-    public static Shop initialize() {
+    public static Shop initialize() throws Exception {
 
         EquipmentReader equipmentReader = EquipmentReader.getInstance();
 
-        while (EquipmentReader.hasEquipment()){
-            ShopInitializer.addUnit(equipmentReader.getEquipment(), shop);
+        try {
+            while (EquipmentReader.hasEquipment()){
+                ShopInitializer.addUnit(equipmentReader.getEquipment(), shop);
+            }
+        } finally {
+            equipmentReader.close();
         }
         return shop;
     }
