@@ -7,9 +7,6 @@ public class SportEquipment {
     private Integer price = 0;
     private Category category;
 
-    public SportEquipment() {
-    }
-
     public SportEquipment(String title, Integer price, SportEquipment.Category category) {
         this.title = title;
         this.price = price;
@@ -47,7 +44,7 @@ public class SportEquipment {
 
         SportEquipment that = (SportEquipment) o;
 
-        if (title != null ? !title.equals(that.title) : that.title != null) return false;
+        if (title != null ? !title.equals(that.title) : that.title != null) return false;//проверяем все поля
         if (price != null ? !price.equals(that.price) : that.price != null) return false;
         return category == that.category;
     }

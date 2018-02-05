@@ -1,4 +1,4 @@
-package com.andy.task2_equipment_rent.util;
+package com.andy.task2_equipment_rent.dao.util;
 
 import java.util.ResourceBundle;
 

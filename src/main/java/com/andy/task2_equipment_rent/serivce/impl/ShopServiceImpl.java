@@ -1,5 +1,6 @@
 package com.andy.task2_equipment_rent.serivce.impl;
 
+import com.andy.task2_equipment_rent.model.criteria.SearchCriteria;
 import com.andy.task2_equipment_rent.dao.DAOFactory;
 import com.andy.task2_equipment_rent.dao.ShopDAO;
 import com.andy.task2_equipment_rent.model.Renter;
@@ -18,12 +19,13 @@ public class ShopServiceImpl implements ShopService {
     private ShopDAO shopDAO = daoFactory.getShopDAO();
     private Validator validator;
 
-    public RentUnit findEquipment(List<SportEquipment> sportEquipment, Renter renter) {
+    public RentUnit findEquipment(List<SearchCriteria> equipmentCriteria, Renter renter) {
+
         validator = Validator.getInstance();
 
-        validator.validate(sportEquipment, renter, shopDAO);
+        validator.validate(equipmentCriteria, renter);
 
-        return shopDAO.findEquipment(sportEquipment, renter);
+        return shopDAO.findEquipment(equipmentCriteria, renter);
     }
 
     public Set<Map.Entry<SportEquipment, Integer>> dailyReportUnits() {

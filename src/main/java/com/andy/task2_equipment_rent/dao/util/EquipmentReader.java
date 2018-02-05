@@ -1,4 +1,4 @@
-package com.andy.task2_equipment_rent.util;
+package com.andy.task2_equipment_rent.dao.util;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -16,7 +16,7 @@ public class EquipmentReader implements AutoCloseable {
             fileReader = new FileReader(FileName.getFilename());
             equipmentReader = new EquipmentReader();
         } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
+            throw new IllegalArgumentException();
         }
 
         scanner = new Scanner(fileReader).useDelimiter("\\s*\\n\\s*");

@@ -1,31 +1,33 @@
 package com.andy.task2_equipment_rent.start;
 
+import com.andy.task2_equipment_rent.model.criteria.Criteria;
+import com.andy.task2_equipment_rent.model.criteria.SearchCriteria;
 import com.andy.task2_equipment_rent.model.Renter;
 import com.andy.task2_equipment_rent.model.RentUnit;
-import com.andy.task2_equipment_rent.model.SportEquipment;
 import com.andy.task2_equipment_rent.serivce.ServiceFactory;
 import com.andy.task2_equipment_rent.serivce.ShopService;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
         ServiceFactory serviceFactory = ServiceFactory.getInstance();
         ShopService shopService = serviceFactory.getShopService();
 
-        SportEquipment sportEquipment = new SportEquipment();
-        sportEquipment.setCategory(SportEquipment.Category.SKI);
-        sportEquipment.setTitle("FOX");
-        sportEquipment.setPrice(10);
+        Map<Criteria, Object> map = new HashMap<Criteria, Object>();
+        map.put(Criteria.PRICE, 10);
+        SearchCriteria searchCriteria = new SearchCriteria(map, "SKI");
 
-        List<SportEquipment> listEquioment = new ArrayList<SportEquipment>();
-        listEquioment.add(sportEquipment);
-        Renter renter = new Renter("Vasa");
-        Renter renter2 = new Renter("Vasa2");
-        Renter renter3 = new Renter("Vasa3");
-        Renter renter4 = new Renter("Vasa4");
-        Renter renter5 = new Renter("Vasa5");
+        List<SearchCriteria> listEquioment = new ArrayList<SearchCriteria>();
+        listEquioment.add(searchCriteria);
+        Renter renter = new Renter("Va");
+        Renter renter2 = new Renter("Va2");
+        Renter renter3 = new Renter("Va3");
+        Renter renter4 = new Renter("Va4");
+        Renter renter5 = new Renter("Va5");
         RentUnit rentUnit = shopService.findEquipment(listEquioment, renter);
         RentUnit rentUnit2 = shopService.findEquipment(listEquioment, renter2);
         RentUnit rentUnit3 = shopService.findEquipment(listEquioment, renter3);

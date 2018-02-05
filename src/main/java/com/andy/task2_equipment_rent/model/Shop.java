@@ -25,31 +25,27 @@ public class Shop {
         this.goods = goods;
     }
 
-    public void setUnit(SportEquipment sportEquipment, Integer count){
-        goods.put(sportEquipment, count);
-    }
-
-    public Integer getUnit(SportEquipment sportEquipment){
+    public Integer getGood(SportEquipment sportEquipment){
         return goods.get(sportEquipment);
     }
 
-    public static Shop getShop() {
-        return shop;
+    public void setGood(SportEquipment sportEquipment, Integer count){
+        goods.put(sportEquipment, count);
     }
 
-    public Map<Renter, RentUnit> getInRent() {
+    public Map<Renter, RentUnit> getRenters() {
         return renters;
     }
 
-    public void setInRent(Map<Renter, RentUnit> renters) {
+    public void setRenters(Map<Renter, RentUnit> renters) {
         this.renters = renters;
     }
 
-    public void addInRentUnit(Renter renter, RentUnit rentUnit) {
+    public void addRenter(Renter renter, RentUnit rentUnit) {
         renters.put(renter, rentUnit);
     }
 
-    public RentUnit getInRentCount(Renter renter){
+    public RentUnit getRenter(Renter renter){
         return renters.get(renter);
     }
 

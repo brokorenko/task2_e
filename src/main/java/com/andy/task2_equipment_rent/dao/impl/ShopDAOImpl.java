@@ -1,11 +1,13 @@
 package com.andy.task2_equipment_rent.dao.impl;
 
+import com.andy.task2_equipment_rent.model.criteria.SearchCriteria;
 import com.andy.task2_equipment_rent.dao.ShopDAO;
 import com.andy.task2_equipment_rent.model.Renter;
 import com.andy.task2_equipment_rent.model.RentUnit;
 import com.andy.task2_equipment_rent.model.Shop;
 import com.andy.task2_equipment_rent.model.SportEquipment;
-import com.andy.task2_equipment_rent.util.ShopInitializer;
+import com.andy.task2_equipment_rent.dao.util.CriteriaAndGoodsComparator;
+import com.andy.task2_equipment_rent.dao.util.ShopInitializer;
 
 import java.util.List;
 import java.util.Map;
@@ -19,62 +21,37 @@ public class ShopDAOImpl implements ShopDAO {
         try {
             shop = ShopInitializer.initialize();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            throw new IllegalArgumentException("Cant initialize shop");
         }
     }
 
 
-    public RentUnit findEquipment(List<SportEquipment> sportEquipment, Renter renter) {
+    public RentUnit findEquipment(List<SearchCriteria> searchCriteria, Renter renter){
+
+        if (shop.getRenter(renter) != null) {
+            if (shop.getRenter(renter).getUnits().size() + searchCriteria.size() >= 3){
+                throw new IllegalArgumentException("You should return our stuff!");
+            }
+        }
 
         RentUnit rentUnit = RentUnit.getInstance();
-        boolean isOk;
+        CriteriaAndGoodsComparator criteriaComparator = CriteriaAndGoodsComparator.getInstance();
 
-        for (SportEquipment equipment : sportEquipment) {
+        for (SearchCriteria criteria : searchCriteria) {
 
-            if (shop.getGoods().get(equipment) != null){
-                rentUnit.addUnit(equipment);
-                shop.setUnit(equipment, shop.getUnit(equipment) - 1);
+            for (Map.Entry<SportEquipment, Integer> shopGoodsEntry : shop.getGoods().entrySet()){
 
-            } else {
-
-                for (Map.Entry<SportEquipment, Integer> shopEquipment : shop.getGoods().entrySet()) {
-
-                    isOk = true;
-
-                    if (shopEquipment.getKey().getCategory().equals(equipment.getCategory())){
-
-                        if (!equipment.getTitle().equals("")){
-
-                            if (!shopEquipment.getKey().getTitle().equals(equipment.getTitle())){
-                                isOk = false;
-                            }
-                        }
-
-                        if (equipment.getPrice() != 0){
-
-                            if (shopEquipment.getKey().getPrice() != equipment.getPrice()){
-                                isOk = false;
-                            }
-                        }
-                        if (isOk){
-                            rentUnit.addUnit(shopEquipment.getKey());
-                            shop.setUnit(shopEquipment.getKey(), shop.getUnit(shopEquipment.getKey()) - 1);
-                            break;
-                        }
-
-                    }
+                if (criteriaComparator.compareCriteriaWithShopGoods(criteria, shopGoodsEntry)){
+                    rentUnit.addUnit(shopGoodsEntry.getKey());
+                    shop.setGood(shopGoodsEntry.getKey(), shop.getGood(shopGoodsEntry.getKey()) - 1);
+                    break;
                 }
             }
         }
-        shop.addInRentUnit(renter, rentUnit);
+
+        shop.addRenter(renter, rentUnit);
 
         return rentUnit;
-    }
-
-    public Integer nowInRent(Renter renter) {
-        if (shop.getInRentCount(renter) == null)
-            return 0;
-        return shop.getInRentCount(renter).getUnits().size();
     }
 
     public Set<Map.Entry<SportEquipment, Integer>> dailyReportUnits() {
@@ -82,7 +59,7 @@ public class ShopDAOImpl implements ShopDAO {
     }
 
     public Set<Map.Entry<Renter, RentUnit>> dailyReportRenters() {
-        return shop.getInRent().entrySet();
+        return shop.getRenters().entrySet();
     }
 
 }

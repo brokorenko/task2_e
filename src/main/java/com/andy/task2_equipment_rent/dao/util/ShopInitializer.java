@@ -1,4 +1,4 @@
-package com.andy.task2_equipment_rent.util;
+package com.andy.task2_equipment_rent.dao.util;
 
 import com.andy.task2_equipment_rent.model.Shop;
 import com.andy.task2_equipment_rent.model.SportEquipment;
@@ -86,7 +86,7 @@ public class ShopInitializer {
             count.append(letters[i]);
         }
 
-        shop.setUnit(new SportEquipment(String.valueOf(title),
+        shop.setGood(new SportEquipment(String.valueOf(title),
                 Integer.valueOf(String.valueOf(price)),
                         SportEquipment.Category.valueOf(String.valueOf(category).trim())),
                 Integer.valueOf(String.valueOf(count)));
