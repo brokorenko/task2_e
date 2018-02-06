@@ -21,7 +21,7 @@ public class ShopInitializer {
 
         int i = 0;
         try {
-            while (EquipmentReader.hasEquipment() && i < 2){
+            while (EquipmentReader.hasEquipment()){
                 ShopInitializer.addUnit(equipmentReader.getEquipment(), shop);
                 i++;
             }
