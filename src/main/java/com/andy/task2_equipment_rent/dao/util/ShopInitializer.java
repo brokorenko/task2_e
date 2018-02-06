@@ -18,12 +18,10 @@ public class ShopInitializer {
     public static Shop initialize() throws Exception {
 
         EquipmentReader equipmentReader = EquipmentReader.getInstance();
-
-        int i = 0;
+        
         try {
             while (EquipmentReader.hasEquipment()){
-                ShopInitializer.addUnit(equipmentReader.getEquipment(), shop);
-                i++;
+                ShopInitializer.addUnit(equipmentReader.getEquipment(), shop);               
             }
         } finally {
             equipmentReader.close();
