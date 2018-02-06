@@ -12,7 +12,7 @@ import java.util.Set;
 public interface ShopDAO {
     RentUnit findEquipment(List<SearchCriteria> equipmentCriteria, Renter renter);
 
-    Set<Map.Entry<SportEquipment, Integer>> dailyReportUnits();
+    Map<SportEquipment, Integer> dailyReportUnits();
 
-    Set<Map.Entry<Renter, RentUnit>> dailyReportRenters();
+    Map<Renter, RentUnit> dailyReportRenters();
 }

@@ -54,12 +54,12 @@ public class ShopDAOImpl implements ShopDAO {
         return rentUnit;
     }
 
-    public Set<Map.Entry<SportEquipment, Integer>> dailyReportUnits() {
-        return shop.getGoods().entrySet();
+    public Map<SportEquipment, Integer> dailyReportUnits() {
+        return shop.getGoods();
     }
 
-    public Set<Map.Entry<Renter, RentUnit>> dailyReportRenters() {
-        return shop.getRenters().entrySet();
+    public Map<Renter, RentUnit> dailyReportRenters() {
+        return shop.getRenters();
     }
 
 }

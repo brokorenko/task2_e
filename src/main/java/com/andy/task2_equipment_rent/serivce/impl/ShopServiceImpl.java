@@ -28,11 +28,11 @@ public class ShopServiceImpl implements ShopService {
         return shopDAO.findEquipment(equipmentCriteria, renter);
     }
 
-    public Set<Map.Entry<SportEquipment, Integer>> dailyReportUnits() {
+    public Map<SportEquipment, Integer> dailyReportUnits() {
         return shopDAO.dailyReportUnits();
     }
 
-    public Set<Map.Entry<Renter, RentUnit>> dailyReportRenters() {
+    public Map<Renter, RentUnit> dailyReportRenters() {
         return shopDAO.dailyReportRenters();
     }
 

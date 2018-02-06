@@ -11,6 +11,6 @@ import java.util.Set;
 
 public interface ShopService {
     RentUnit findEquipment(List<SearchCriteria> equipmentCriteria, Renter renter);
-    Set<Map.Entry<SportEquipment, Integer>> dailyReportUnits();
-    Set<Map.Entry<Renter, RentUnit>> dailyReportRenters();
+    Map<SportEquipment, Integer> dailyReportUnits();
+    Map<Renter, RentUnit> dailyReportRenters();
 }

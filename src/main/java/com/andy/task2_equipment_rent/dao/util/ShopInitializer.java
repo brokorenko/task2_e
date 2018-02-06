@@ -19,9 +19,11 @@ public class ShopInitializer {
 
         EquipmentReader equipmentReader = EquipmentReader.getInstance();
 
+        int i = 0;
         try {
-            while (EquipmentReader.hasEquipment()){
+            while (EquipmentReader.hasEquipment() && i < 2){
                 ShopInitializer.addUnit(equipmentReader.getEquipment(), shop);
+                i++;
             }
         } finally {
             equipmentReader.close();
