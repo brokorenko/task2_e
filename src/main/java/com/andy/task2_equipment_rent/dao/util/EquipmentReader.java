@@ -29,7 +29,7 @@ public class EquipmentReader implements AutoCloseable {
         return scanner.hasNext();
     }
 
-    public String getEquipment(){
+    public static String getEquipment(){
         return scanner.next();
     }
 

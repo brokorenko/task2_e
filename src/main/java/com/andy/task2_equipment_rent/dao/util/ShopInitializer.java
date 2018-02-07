@@ -2,13 +2,11 @@ package com.andy.task2_equipment_rent.dao.util;
 
 import com.andy.task2_equipment_rent.model.Shop;
 import com.andy.task2_equipment_rent.model.SportEquipment;
+import com.andy.task2_equipment_rent.model.criteria.Criteria;
+
+import java.util.Map;
 
 public class ShopInitializer {
-
-    private static final StringBuilder category = new StringBuilder();
-    private static final StringBuilder title = new StringBuilder();
-    private static final StringBuilder price = new StringBuilder();
-    private static final StringBuilder count = new StringBuilder();
 
     private static final Shop shop = Shop.getInstance();
 
@@ -18,79 +16,24 @@ public class ShopInitializer {
     public static Shop initialize() throws Exception {
 
         EquipmentReader equipmentReader = EquipmentReader.getInstance();
+        Map<Criteria, String> shopGoodFields;
 
-        int i = 0;
         try {
-            while (EquipmentReader.hasEquipment() && i < 2){
-                ShopInitializer.addUnit(equipmentReader.getEquipment(), shop);
-                i++;
+
+            while (EquipmentReader.hasEquipment()){
+
+                shopGoodFields = ShopUnit.getShopUnit(EquipmentReader.getEquipment());
+
+                shop.setGood(new SportEquipment(shopGoodFields.get(Criteria.TITLE),
+                                Integer.valueOf(shopGoodFields.get(Criteria.PRICE)),
+                                SportEquipment.Category.valueOf(shopGoodFields.get(Criteria.CATEGORY).trim())),
+                        Integer.valueOf(shopGoodFields.get(Criteria.COUNT)));
+
+
             }
         } finally {
             equipmentReader.close();
         }
         return shop;
-    }
-
-    private static void addUnit(String equipment, Shop shop){
-
-        category.setLength(0);
-        title.setLength(0);
-        price.setLength(0);
-        count.setLength(0);
-
-        String[] letters = equipment.split("");
-
-        int i;
-
-        for (i = 0; i < letters.length; i++) {
-            if (letters[i].equals(":")) {
-                break;
-            }
-            category.append(letters[i]);
-        }
-
-        while (!letters[i].equals("=")) {
-            i++;
-        }
-
-        i++;
-
-        for (; i < letters.length; i++) {
-            if (letters[i].equals(",")) {
-                break;
-            }
-            title.append(letters[i]);
-        }
-
-        while (!letters[i].equals("=")) {
-            i++;
-        }
-
-        i++;
-
-        for (; i < letters.length; i++) {
-            if (letters[i].equals(",")) {
-                break;
-            }
-            price.append(letters[i]);
-        }
-
-        while (!letters[i].equals("=")) {
-            i++;
-        }
-
-        i++;
-
-        for (;i < letters.length - 1; i++) {
-            if (letters[i].equals(",")) {
-                break;
-            }
-            count.append(letters[i]);
-        }
-
-        shop.setGood(new SportEquipment(String.valueOf(title),
-                Integer.valueOf(String.valueOf(price)),
-                        SportEquipment.Category.valueOf(String.valueOf(category).trim())),
-                Integer.valueOf(String.valueOf(count)));
     }
 }
