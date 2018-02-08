@@ -21,7 +21,7 @@ public class ShopDAOImpl implements ShopDAO {
         try {
             shop = ShopInitializer.initialize();
         } catch (Exception e) {
-            throw new IllegalArgumentException("Cant initialize shop");
+            throw new RuntimeException("Cant initialize shop");
         }
     }
 
