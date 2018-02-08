@@ -16,7 +16,7 @@ public class EquipmentReader implements AutoCloseable {
             fileReader = new FileReader(FileName.getFilename());
             equipmentReader = new EquipmentReader();
         } catch (FileNotFoundException e) {
-            throw new IllegalArgumentException();
+            throw new RuntimeException("Can't find db file");
         }
 
         scanner = new Scanner(fileReader).useDelimiter("\\s*\\n\\s*");

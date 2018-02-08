@@ -1,6 +1,5 @@
 package com.andy.task2_equipment_rent.dao.util;
 
-import com.andy.task2_equipment_rent.model.SportEquipment;
 import com.andy.task2_equipment_rent.model.criteria.Criteria;
 
 import java.util.HashMap;
